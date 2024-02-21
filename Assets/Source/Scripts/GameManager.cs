@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         fistCollected = null;
+                        line.positionCount = 0;
                         foreach (var tp in listCollected)
                         {
                             tp.SetUnCollected();
