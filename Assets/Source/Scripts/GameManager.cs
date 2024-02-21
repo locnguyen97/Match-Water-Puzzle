@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> listBg;
     private bool isChoseStart = false;
     [SerializeField] private Vector2 startPos;
+    [SerializeField] private LineRenderer line;
     
     
 
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
         Destroy(explosion, .75f);
         Invoke(nameof(RandomDataLevel),1.0f);
     }
+
+    private int index = 0;
     
     void Update()
     {
@@ -84,6 +87,9 @@ public class GameManager : MonoBehaviour
                         tp.SetCollected();
                         listCollected.Add(tp);
                         isChoseStart = true;
+                        line.positionCount = 0;
+                        line.positionCount ++;
+                        line.SetPosition(line.positionCount-1,tp.transform.position);
                     }
                 }
             }
@@ -107,6 +113,8 @@ public class GameManager : MonoBehaviour
                                 {
                                     tp.SetCollected();
                                     listCollected.Add(tp);
+                                    line.positionCount ++;
+                                    line.SetPosition(line.positionCount-1,tp.transform.position);
                                 }
                             }
                         }
@@ -150,6 +158,7 @@ public class GameManager : MonoBehaviour
 
         IEnumerator Kill()
         {
+            line.positionCount = 0;
             canDrag = false;
             int i = 0;
             while (i < listCollected.Count)
